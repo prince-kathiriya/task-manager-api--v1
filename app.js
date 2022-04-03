@@ -5,7 +5,7 @@ require("express-async-errors");
 const helmet = require("helmet");
 const cors = require("cors");
 const xssClean = require("xss-clean");
-const expressRateLimit = require("express-rate-limit");
+const rateLimit = require("express-rate-limit");
 
 // custom imports
 const connectDB = require("./db/connect");
