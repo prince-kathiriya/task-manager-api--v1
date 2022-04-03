@@ -25,6 +25,12 @@ const limiter = rateLimit({
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
+
+// Swagger
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDoc = YAML.load("./swagger.yaml");
+
 // Apply the rate limiting middleware to all requests
 app.use(limiter);
 
@@ -34,6 +40,7 @@ app.use(helmet());
 app.use(cors());
 app.use(xss());
 
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 // routes
 app.use("/api/v1/tasks", authMiddleware, tasks);
 app.use("/api/v1/auth", auth);
